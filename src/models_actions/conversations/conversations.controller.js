@@ -18,9 +18,9 @@ const getAllConversations = async (userId) => {
 };
 
 // GET => Conversation by ID
-const getConversationById = async (id) => {
+const getConversationById = async (id, userId) => {
   const data = await Conversations.findOne({
-    where: { id, isActive: true },
+    where: { id, userId, isActive: true },
     include: [
       {
         model: Users,

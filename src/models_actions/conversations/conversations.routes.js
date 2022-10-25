@@ -19,7 +19,7 @@ router.route('/')
     conversationsServices.createConversation
   );
 
-router.route('/:id')
+router.route('/:conversation_id')
   .get(
     passport.authenticate('jwt', { session: false }),
     conversationsServices.getOneConversation
@@ -33,7 +33,7 @@ router.route('/:id')
     conversationsServices.deleteConversation
   );
 
-router.route('/delete/:id')
+router.route('/delete/:conversation_id')
   .delete(
     passport.authenticate('jwt', { session: false }),
     conversationsServices.destroyConversation

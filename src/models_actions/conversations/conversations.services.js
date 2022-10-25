@@ -16,8 +16,9 @@ const getConversations = (req, res) => {
 
 // GET => Conversation By ID
 const getOneConversation = (req, res) => {
-  const id = req.params.id;
-  conversationsController.getConversationById(id)
+  const id = req.params.conversation_id;
+  const userId = req.user.id;
+  conversationsController.getConversationById(id, userId)
     .then(data => {
       data
         ? res.status(200).json(data)
@@ -52,7 +53,7 @@ const createConversation = (req, res) => {
 
 // PATCH => Update Conversation
 const updateConversation = (req, res) => {
-  const id = req.params.id;
+  const id = req.params.conversation_id;
   const newConversationInfo = {
     title: req.body.title,
     urlImg: req.body.urlImg
@@ -70,7 +71,7 @@ const updateConversation = (req, res) => {
 
 // DELETE => Delete Conversation isActive from true to false
 const deleteConversation = (req, res) => {
-  const id = req.params.id;
+  const id = req.params.conversation_id;
   conversationsController.updateConversation(id, { isActive: false })
     .then(data => {
       data[0]
