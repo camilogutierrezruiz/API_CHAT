@@ -6,13 +6,23 @@ const Users = require('../../models/users.models');
 
 // Import Conversations Model
 const Conversations = require('../../models/conversations.models');
+const Participants = require('../../models/participants.models');
 
 // Controllers for Conversations Model
 // GET => All COnversations
 const getAllConversations = async (userId) => {
   const data = await Conversations.findAll({
     where: { userId, isActive: true },
-
+    include: [
+      {
+        model: Participants,
+        include: [
+          {
+            model: Users
+          }
+        ]
+      }
+    ]
   });
   return data;
 };

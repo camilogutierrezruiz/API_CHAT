@@ -14,7 +14,10 @@ router.route('/:conversation_id/participants')
     passport.authenticate('jwt', { session: false }),
     participantsServices.getParticipants
   )
-  .post();
+  .post(
+    passport.authenticate('jwt', { session: false }),
+    participantsServices.addParticipant
+  );
 
 router.route('/:conversation_id/participants/:participant_id')
   .get();
