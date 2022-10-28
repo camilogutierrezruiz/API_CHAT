@@ -23,6 +23,10 @@ router.route('/:conversation_id/participants/:participant_id')
   .get(
     passport.authenticate('jwt', { session: false }),
     participantsServices.getOneParticipant
+  )
+  .delete(
+    passport.authenticate('jwt', { session: false }),
+    participantsServices.deleteParticipant
   );
 
 // Export Routes

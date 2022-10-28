@@ -48,9 +48,16 @@ const addParticipant = async (conversationId, userId) => {
   return data;
 };
 
+const deleteParticipant = async (id) => {
+  return await Participants.destroy({
+    where: { id }
+  });
+};
+
 // Export Controllers
 module.exports = {
   geAllParticipants,
   getparticipantById,
-  addParticipant
+  addParticipant,
+  deleteParticipant
 };

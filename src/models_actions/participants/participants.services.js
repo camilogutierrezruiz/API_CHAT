@@ -42,9 +42,25 @@ const addParticipant = (req, res) => {
     });
 };
 
+const deleteParticipant = (req, res) => {
+  const id = req.params.participant_id;
+  participantsController.deleteParticipant(id)
+    .then(() => {
+      res
+        .status(204)
+        .json({ message: `Participant with id ${id} has been deleted!` });
+    })
+    .catch(err => {
+      res
+        .status(400)
+        .json({ message: err.message });
+    });
+};
+
 // Export Services
 module.exports = {
   getParticipants,
   getOneParticipant,
-  addParticipant
+  addParticipant,
+  deleteParticipant
 };
