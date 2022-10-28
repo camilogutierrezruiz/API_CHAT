@@ -12,9 +12,29 @@ const geAllParticipants = async (conversationId) => {
     where: { conversationId },
     include: [
       {
-        model: Users
+        model: Users,
+        attributes: ['id', 'firstName', 'lastName', 'email', 'profileImg', 'phone']
       }
-    ]
+    ],
+    attributes: {
+      exclude: ['userId', 'createdAt', 'updatedAt']
+    }
+  });
+  return data;
+};
+
+const getparticipantById = async (id, conversationId) => {
+  const data = await Participants.findOne({
+    where: { id, conversationId },
+    include: [
+      {
+        model: Users,
+        attributes: ['id', 'firstName', 'lastName', 'email', 'profileImg', 'phone']
+      }
+    ],
+    attributes: {
+      exclude: ['userId', 'createdAt', 'updatedAt']
+    }
   });
   return data;
 };
@@ -31,5 +51,6 @@ const addParticipant = async (conversationId, userId) => {
 // Export Controllers
 module.exports = {
   geAllParticipants,
+  getparticipantById,
   addParticipant
 };

@@ -12,17 +12,7 @@ const Participants = require('../../models/participants.models');
 // GET => All COnversations
 const getAllConversations = async (userId) => {
   const data = await Conversations.findAll({
-    where: { userId, isActive: true },
-    include: [
-      {
-        model: Participants,
-        include: [
-          {
-            model: Users
-          }
-        ]
-      }
-    ]
+    where: { userId, isActive: true }
   });
   return data;
 };
@@ -35,8 +25,20 @@ const getConversationById = async (id, userId) => {
       {
         model: Users,
         attributes: {
-          exclude: ['password', 'createdAt', 'updatedAt']
+          exclude: ['id', 'role', 'status', 'isVerified', 'password', 'createdAt', 'updatedAt']
         }
+      },
+      {
+        model: Participants,
+        attributes: ['id'],
+        include: [
+          {
+            model: Users,
+            attributes: {
+              exclude: ['createdAt', 'updatedAt']
+            }
+          }
+        ]
       }
     ],
     attributes: {

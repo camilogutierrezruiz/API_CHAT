@@ -1,5 +1,6 @@
 // Import Conversations Controller
 const conversationsController = require('./conversations.controller');
+const participantsController = require('../participants/participants.controller');
 
 // Conversations Services
 // GET => All Concersations
@@ -36,6 +37,7 @@ const createConversation = (req, res) => {
   if (title) {
     conversationsController.createConversation({ title, urlImg, userId })
       .then(data => {
+        participantsController.addParticipant(data.id, userId);
         res.status(201).json(data);
       })
       .catch(err => {

@@ -20,7 +20,10 @@ router.route('/:conversation_id/participants')
   );
 
 router.route('/:conversation_id/participants/:participant_id')
-  .get();
+  .get(
+    passport.authenticate('jwt', { session: false }),
+    participantsServices.getOneParticipant
+  );
 
 // Export Routes
 module.exports = router;
